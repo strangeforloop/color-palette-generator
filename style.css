@@ -33,13 +33,23 @@
   justify-content: center;
   /* align-content: space-between; */
   list-style: none;
-  margin-top: 3em;
+  /* margin-top: 3em; */
+  width: 80%;
+  margin: 2em auto 0;
 }
 
 .swatch {
-  width: 130px;
-  height: 130px;
+  /* width: 130px; */
+  /* height: 0;
+  padding-bottom: 100%; */
   border: 1px solid black;
+  flex: 1 0 auto;
+}
+
+.swatch:after {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
 }
 
 #one {
