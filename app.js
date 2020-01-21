@@ -1,49 +1,86 @@
 const proxyurl="https://cors-anywhere.herokuapp.com/";
 const url="http://colormind.io/api/";
 const data={
-  model: "default",
-  input: [[44, 43, 44], [90, 83, 82], "N", "N", "N"]
+  model: "default"
+  // input: [[44, 43, 44], [90, 83, 82], "N", "N", "N"]
 }
 
-// need to make the request thru a CORS proxy because
-// lack Access-Control-Allow-Origin header
-// axios({
-//   method: 'post',
-//   url: proxyurl + source,
-//   data: {
-//     model: "default",
-//     input: [[44, 43, 44], [90, 83, 82], "N", "N", "N"]
-//   }
-// });
-
-// --- xml request stuff that isn't not returning data in time to
-// be used :(
 var http=new XMLHttpRequest();
-var palette;
 
 http.onreadystatechange=function () {
-  if (http.readyState==4&&http.status==200) {
-    palette=JSON.parse(http.responseText).result;
+  if (http.readyState==4 && http.status==200) {
+    var palette=JSON.parse(http.responseText).result;
+    console.log('palette: ', palette);
+
+    getColorsFromArray(palette);
+    console.log(palette);
   }
 }
 
-console.log(palette);
-
-http.open("POST", url, false);
+http.open("POST", url, true);
 http.send(JSON.stringify(data));
 
-console.log(palette);
+
+// GENERAL SYNTAX
+// parent.childNodes[1].style.color="rgb(155, 102, 102)"; 
+// let color = "rgb(";
+// if first two items, append number as a string and ,
+// if last item, append number as a string )
+
+let rgbColorsAsStringsArray = [];
+
+// rgb(redValue, greenValue, blueValue)
+function getColorsFromArray(palette) {
+  let numOfColors = 5;
+
+  // get hex color for palette
+  for (let i = 0; i < numOfColors; i++) {
+    console.log(palette[i]);
+
+    let color="rgb(";
+    for (let j = 0; j < 3; j++) {
+      // construct color string to have format rbg(x, y, z)
+      if (j == 0 || j == 1) {
+        color += palette[i][j].toString() + ", ";
+      } else {
+        color += palette[i][j].toString() + ")";
+      }
+    }
+    rgbColorsAsStringsArray.push(color);
+    // console.log('Colors Array: ', rgbColorsAsStringsArray);
+  }
+
+  setColorOfElements();
+}
+
+function setColorOfElements() {
+  // for the number of swatches,
+  // set each one to the corresponding color in the string color array
+  // then do
+  // document.getElementById('one').style.backgroundColor = rgbAsAStringArray[i];
+
+  const swatchElements = document.getElementsByClassName('swatch');
+  // console.log("LIs: ", swatchElements);
+  let numOfColors = 5;
+
+  for (let i = 0; i < numOfColors; i++) {
+    swatchElements[i].style.backgroundColor = rgbColorsAsStringsArray[i];
+  }
+}
 
 
-// http.addEventListener("load", e => {
-//   console.log(e);
-// });
+// function getColorsFromArray2(palette) {
+//   let numOfColors = 5;
 
-// --- note: fetch won't work with xml, so you can't use it
-// const getColors = async () => {
-//   const response=await fetch(url, JSON.stringify(data));
-//   const info=await response.json();
-//   console.log('info: ', info);
+//   // get hex color for palette
+//   for (let i = 0; i < numOfColors; i++) {
+//     let hexColorString='';
+//     console.log(palette[i]);
+
+//     for (let j = 0; j < 3; j++) {
+//       hexColorString += palette[i][j].toString();
+//     }
+
+//     console.log('Hex String: ', hexColorString);
+//   }
 // }
-
-// getColors();
