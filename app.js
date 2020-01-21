@@ -27,7 +27,6 @@ function getColorsFromArray(palette) {
   const numColorsInPalette = palette.length;
   let rgbColorsAsStringsArray = [];
   
-  // get hex color for palette
   for (let i = 0; i < numColorsInPalette; i++) {
     console.log(palette[i]);
 
@@ -36,7 +35,6 @@ function getColorsFromArray(palette) {
     `rgb(${palette[i].map(hue => hue.toString()).join(', ')})`;
 
     rgbColorsAsStringsArray.push(colorAsString);
-    // console.log('Colors Array: ', rgbColorsAsStringsArray);
   }
 
   setColorOfElements(rgbColorsAsStringsArray);
