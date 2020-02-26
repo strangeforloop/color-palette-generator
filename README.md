@@ -20,4 +20,4 @@ Here you can observe examples of color palettes that get generated as well as th
 # Future Improvements
 * In the future, I plan to look for a similar API, but one that has a secure HTTPS endpoint so that I can host it on a secure website. 
 * Another conderation would be to include an **SVG** image that gets colored in using the generated color palette as a means of displaying their custom palette. 
-* Additionally, I plan to add corresponding color values in the form of HEX values and their closest-matching **Pantone color names**.
+* Additionally, I plan to add corresponding color values in the form of HEX values and their closest-matching Pantone color names.
